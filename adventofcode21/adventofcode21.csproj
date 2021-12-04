@@ -11,4 +11,10 @@
     <None Remove="puzzles\day1\Sonar Sweep.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="puzzles\day2\dive.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
