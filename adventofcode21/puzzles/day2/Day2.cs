@@ -20,7 +20,7 @@ namespace adventofcode21.puzzles
             var depth = 0;
             var horizontalPos = 0;
 
-            var instructions = File.ReadAllLines("dive.txt");
+            var instructions = File.ReadAllLines("puzzles/day2/dive.txt");
 
             foreach (var instruction in instructions)
             {

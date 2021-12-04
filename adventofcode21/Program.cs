@@ -2,6 +2,7 @@
 using adventofcode21.puzzles;
 
 Console.WriteLine("-< Advent of Code 2021 >-");
-var day = 
 //new Day1();
-new Day2();
+//new Day2();
+//new Day3();
+new Day4();

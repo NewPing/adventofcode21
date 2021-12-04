@@ -16,7 +16,7 @@ namespace adventofcode21.puzzles
 
         public void sweep1()
         {
-            var sweeps = File.ReadAllLines("Sonar Sweep.txt");
+            var sweeps = File.ReadAllLines("puzzles/day1/Sonar Sweep.txt");
             var increases = 0;
             var decreases = 0;
             var noChanges = 0;
