@@ -17,6 +17,9 @@
     <None Update="puzzles\day3\binary diagnostics.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="puzzles\day4\bingo boards.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
