@@ -7,4 +7,4 @@ Console.WriteLine("-< Advent of Code 2021 >-");
 //new Day3();
 //new Day4();
 //new Day5();
-new Day6();
+//new Day6();

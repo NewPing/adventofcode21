@@ -18,7 +18,7 @@ namespace adventofcode21.puzzles
         public void lanternfish1()
         {
             var input = File.ReadAllText("puzzles/day6/lanternfish.txt");
-            var lanternfishes = Regex.Matches(input, "\\d+").Select(x => new Lanternfish(byte.Parse(x.Value))).ToList();
+            var lanternfishes = Regex.Matches(input, "\\d+").Select(x => new Lanternfish(int.Parse(x.Value))).ToList();
 
             Console.Write("Initial state: ");
             foreach(var fish in lanternfishes)
@@ -55,50 +55,44 @@ namespace adventofcode21.puzzles
         public void lanternfish2()
         {
             var input = File.ReadAllText("puzzles/day6/lanternfish.txt");
-            List<byte> lanternfishes = Regex.Matches(input, "\\d+").Select(x => byte.Parse(x.Value)).ToList();
+            var initalFishes = Regex.Matches(input, "\\d+").Select(x => int.Parse(x.Value)).ToList();
 
-            Console.Write("Initial state: ");
-            foreach (var fish in lanternfishes)
+            long[] fishesByDay = new long[9]; //fishes[9] is tmp day
+            for (int i = 0; i < initalFishes.Count; i++)
             {
-                Console.Write(fish + ",");
+                fishesByDay[initalFishes[i]]++; 
             }
-            Console.WriteLine();
 
-            var daysToCompute = 265;
+            var daysToCompute = 256;
             for (int i = 0; i < daysToCompute; i++)
             {
-                Console.WriteLine($"Currently on day { i + 1 }");
-                var newFishes = new List<byte>();
-                for (int fish = 0; fish < lanternfishes.Count; fish++)
-                {
-                    if (lanternfishes[fish] == 0)
-                    {
-                        newFishes.Add(0);
-                    }
-                    lanternfishes[fish] = update(lanternfishes[fish]);
-                }
-                lanternfishes = lanternfishes.Concat(newFishes).ToList();
+                var tmp = fishesByDay[0];
+
+                fishesByDay[0] = fishesByDay[1];
+                fishesByDay[1] = fishesByDay[2];
+                fishesByDay[2] = fishesByDay[3];
+                fishesByDay[3] = fishesByDay[4];
+                fishesByDay[4] = fishesByDay[5];
+                fishesByDay[5] = fishesByDay[6];
+                fishesByDay[6] = fishesByDay[7];
+                fishesByDay[7] = fishesByDay[8];
+
+                fishesByDay[6] += tmp;
+                fishesByDay[8] = tmp;
+
+                Console.WriteLine($"After { i + 1 } day: " + fishesByDay.Sum());
             }
 
-            Console.WriteLine($"Number of lanternfish after { daysToCompute } days: { lanternfishes.Count }");
+            Console.WriteLine($"Number of lanternfish after { daysToCompute } days: " + fishesByDay.Sum());
         }
 
-        public byte update(byte val)
-        {
-            if (val == 0)
-            {
-                val = 7;
-            }
-
-            return val--;
-        }
     }
 
     public class Lanternfish
     {
-        public byte internalCounter;
+        public int internalCounter;
 
-        public Lanternfish(byte initalDays = 8)
+        public Lanternfish(int initalDays = 8)
         {
             internalCounter = initalDays;
         }
