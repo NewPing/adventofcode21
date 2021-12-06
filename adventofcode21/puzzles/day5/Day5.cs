@@ -32,32 +32,51 @@ namespace adventofcode21.puzzles
                 mineField[i] = new int[Vent.maxY +1];
             }
 
-            //logic
-            //XValues
+            //mapping mineField
             foreach (var vent in vents)
             {
-                var modifierX = vent.diffX >= 0 ? 1 : -1;
-                for (int i = vent.x1; i != vent.x2; i += modifierX)
+                if (vent.isNormal)
                 {
-                    mineField[i][vent.y1]++;
-                }
-                var modifierY = vent.diffY >= 0 ? 1 : -1;
-                for (int i = vent.y1; i != vent.y2; i += modifierY)
+                    if (vent.x1 != vent.x2)
+                    {
+                        var modifierX = vent.diffX >= 0 ? 1 : -1;
+                        for (int x = vent.x1; x != vent.x2 + modifierX; x += modifierX)
+                        {
+                            mineField[x][vent.y1]++;
+                        }
+                    }
+                    if (vent.y1 != vent.y2)
+                    {
+                        var modifierY = vent.diffY >= 0 ? 1 : -1;
+                        for (int y = vent.y1; y != vent.y2 + modifierY; y += modifierY)
+                        {
+                            mineField[vent.x1][y]++;
+                        }
+                    }
+                } else
                 {
-                    mineField[vent.x1][i]++;
+                    var modifierX = vent.diffX >= 0 ? 1 : -1;
+                    var modifierY = vent.diffY >= 0 ? 1 : -1;
+                    for (int x = vent.x1, y = vent.y1; x != vent.x2 + modifierX; x += modifierX, y += modifierY)
+                    {
+                        mineField[x][y]++;
+                    }
                 }
             }
 
             var ventCounter = 0;
-            for (int x = 0; x < mineField.Length; x++)
+
+            for (int y = 0; y < mineField[0].Length; y++)
             {
-                for (int y = 0; y < mineField[x].Length; y++)
+                for (int x = 0; x < mineField.Length; x++)
                 {
+                    //Console.Write(mineField[x][y]);
                     if (mineField[x][y] >= 2)
                     {
                         ventCounter++;
                     }
                 }
+                //Console.WriteLine();
             }
 
             Console.WriteLine("Number of overlapping vent points bigger then 2: " + ventCounter);
@@ -68,6 +87,7 @@ namespace adventofcode21.puzzles
     {
         public static int maxX = 0;
         public static int maxY = 0;
+        public bool isNormal = false;
         public int x1 { get; }
         public int y1 { get; }
         public int x2 { get; }
@@ -89,6 +109,11 @@ namespace adventofcode21.puzzles
             maxX = x2 > maxX ? x2 : maxX;
             maxY = y1 > maxY ? y1 : maxY;
             maxY = y2 > maxY ? y2 : maxY;
+
+            if (x1 == x2 || y1 == y2)
+            {
+                isNormal = true;
+            }
         }
     }
 }
